@@ -248,6 +248,21 @@ section h2 {
     border-left: 4px solid var(--accent-f1);
 }
 
+.team-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.team-badge::before {
+    content: "";
+    display: inline-block;
+    width: 4px;
+    height: 1.1em;
+    border-radius: 2px;
+    background-color: var(--team-color, var(--text-muted));
+}
+
 /* =========================================
    Footer
    ========================================= */

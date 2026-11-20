@@ -1,5 +1,20 @@
 const STANDINGS_URL = "https://api.jolpi.ca/ergast/f1/current/driverStandings.json";
 const SCHEDULE_URL = "https://api.jolpi.ca/ergast/f1/current.json";
+const TEAM_COLOR_MAP = {
+    mercedes: "var(--team-mercedes)",
+    ferrari: "var(--team-ferrari)",
+    red_bull: "var(--team-red-bull)",
+    mclaren: "var(--team-mclaren)",
+    rb: "var(--team-racing-bulls)",
+    racing_bulls: "var(--team-racing-bulls)",
+    alpine: "var(--team-alpine)",
+    haas: "var(--team-haas)",
+    audi: "var(--team-audi)",
+    sauber: "var(--team-audi)",
+    williams: "var(--team-williams)",
+    aston_martin: "var(--team-aston-martin)",
+    cadillac: "var(--team-cadillac)",
+};
 
 async function fetchJson(url) {
     const response = await fetch(url);
@@ -37,8 +52,18 @@ async function loadStandings() {
             const driverTd = document.createElement("td");
             driverTd.textContent = `${entry.Driver.givenName} ${entry.Driver.familyName}`;
 
+            const constructor = entry.Constructors[0];
             const teamTd = document.createElement("td");
-            teamTd.textContent = entry.Constructors[0]?.name ?? "N/A";
+            const badge = document.createElement("span");
+            badge.className = "team-badge";
+            badge.textContent = constructor?.name ?? "N/A";
+
+            const teamColor = TEAM_COLOR_MAP[constructor?.constructorId];
+            if (teamColor) {
+                badge.style.setProperty("--team-color", teamColor);
+            }
+
+            teamTd.appendChild(badge);
 
             const pointsTd = document.createElement("td");
             pointsTd.textContent = entry.points;
