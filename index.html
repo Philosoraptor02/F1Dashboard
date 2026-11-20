@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
   <link rel="stylesheet" href="css/style.css">
   <script type="module" src="js/main.js" defer></script>
 </head>
+
 <body class="dark-mode">
 
   <header>
@@ -15,7 +17,7 @@
       <img src="assets/f1-logo.svg" alt="Formula 1 Logo" id="f1-logo">
     </div>
     <h1>Season Standings Dashboard</h1>
-    
+
     <div class="controls">
       <label for="colorblind-toggle">Colorblind Mode</label>
       <button id="colorblind-toggle" aria-pressed="false">Toggle</button>
@@ -45,10 +47,10 @@
     <!-- Standings Data Grid -->
     <section id="standings-section" aria-labelledby="standings-heading">
       <h2 id="standings-heading">2026 Driver Standings</h2>
-      
+
       <div id="standings-loading" class="ui-state">Loading data from Jolpica F1...</div>
       <div id="standings-error" class="ui-state hidden" aria-live="assertive"></div>
-      
+
       <div id="standings-loaded" class="hidden">
         <table id="standings-table">
           <thead>
@@ -72,7 +74,7 @@
       <h2 id="schedule-heading">Upcoming Race Schedule</h2>
       <div id="schedule-loading" class="ui-state">Loading schedule...</div>
       <div id="schedule-error" class="ui-state hidden" aria-live="assertive"></div>
-      
+
       <ul id="schedule-list" class="hidden">
         <!-- JavaScript using textContent goes here -->
       </ul>
@@ -81,8 +83,10 @@
 
   <footer>
     <hr>
-    <p>Built by Mike H. and Liam M. for COSC 219. Data provided by <a href="https://jolpi.ca/" target="_blank">Jolpica F1 API</a>.</p>
+    <p>Built by Mike H. and Liam M. for COSC 219. Data provided by <a href="https://jolpi.ca/" target="_blank">Jolpica
+        F1 API</a>.</p>
   </footer>
 
 </body>
+
 </html>
