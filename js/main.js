@@ -62,3 +62,45 @@ async function loadStandings() {
         errorEl.classList.remove("hidden");
     }
 }
+
+async function loadSchedule() {
+    const loadingEl = document.querySelector("#schedule-loading");
+    const errorEl = document.querySelector("#schedule-error");
+    const listEl = document.querySelector("#schedule-list");
+
+    try {
+        const data = await fetchJson(SCHEDULE_URL);
+        const races = data.MRData.RaceTable.Races ?? [];
+
+        loadingEl.classList.add("hidden");
+
+        if (races.length === 0) {
+            errorEl.textContent = "No races found for this season.";
+            errorEl.classList.remove("hidden");
+            return;
+        }
+
+        listEl.textContent = "";
+        races.forEach((race) => {
+            const li = document.createElement("li");
+
+            const title = document.createElement("strong");
+            title.textContent = `Round ${race.round}: ${race.raceName}`;
+
+            const details = document.createElement("div");
+            details.textContent = `${race.Circuit.circuitName} — ${race.date}`;
+
+            li.append(title, details);
+            listEl.appendChild(li);
+        });
+
+        listEl.classList.remove("hidden");
+    } catch (err) {
+        loadingEl.classList.add("hidden");
+        errorEl.textContent = `Could not load schedule. (${err.message})`;
+        errorEl.classList.remove("hidden");
+    }
+}
+
+loadStandings();
+loadSchedule();
