@@ -1,0 +1,45 @@
+/* =========================================
+   1. CSS Variables
+   ========================================= */
+:root {
+  /* Base UI Colors */
+  --bg-page: #121216;
+  --bg-surface: #1c1c24;
+  --bg-surface-hover: #262631;
+  --border-color: #2e2e3a;
+  --text-primary: #f4f4f6;
+  --text-muted: #a0a0b0;
+  --accent-f1: #e10600;
+  --focus-ring: #ffd166;
+
+  /* 2026 Constructor Colors (Default) */
+  --team-mercedes: #27f4d2;
+  --team-ferrari: #e8002d;
+  --team-red-bull: #3671c6;
+  --team-mclaren: #ff8000;
+  --team-racing-bulls: #6692ff;
+  --team-alpine: #ff87bc;
+  --team-haas: #b6babd;
+  --team-audi: #ff2d00;
+  --team-williams: #64c4ff;
+  --team-aston-martin: #229971;
+  --team-cadillac: #c5b358;
+
+  --radius: 8px;
+  --gap: 1.25rem;
+}
+
+/* Colorblind-Safe Constructor Overrides */
+body.colorblind {
+  --team-mercedes: #56b4e9;
+  --team-ferrari: #d55e00;
+  --team-red-bull: #0072b2;
+  --team-mclaren: #e69f00;
+  --team-racing-bulls: #cc79a7;
+  --team-alpine: #f0e442;
+  --team-haas: #d9d9d9;
+  --team-audi: #ff6e54;
+  --team-williams: #88ccee;
+  --team-aston-martin: #009e73;
+  --team-cadillac: #ddcc77;
+}
