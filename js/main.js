@@ -127,5 +127,23 @@ async function loadSchedule() {
     }
 }
 
+function initColorblindToggle() {
+    const toggleBtn = document.querySelector("#colorblind-toggle");
+
+    const isSavedColorblind = localStorage.getItem("colorblindMode") === "true";
+    if (isSavedColorblind) {
+        document.body.classList.add("colorblind");
+        toggleBtn.setAttribute("aria-pressed", "true");
+    }
+
+    toggleBtn.addEventListener("click", () => {
+        const isActive = document.body.classList.toggle("colorblind");
+        toggleBtn.setAttribute("aria-pressed", String(isActive));
+        localStorage.setItem("colorblindMode", String(isActive));
+    });
+}
+
+initColorblindToggle();
+
 loadStandings();
 loadSchedule();
