@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formula 1 Season Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script type="module" src="js/main.js" defer></script>
+</head>
+<body class="dark-mode">
+
+  <header>
+    <div class="logo-container">
+      <!-- Placeholder for the official F1 logo -->
+      <img src="assets/f1-logo.svg" alt="Formula 1 Logo" id="f1-logo">
+    </div>
+    <h1>Season Standings Dashboard</h1>
+    
+    <div class="controls">
+      <label for="colorblind-toggle">Colorblind Mode</label>
+      <button id="colorblind-toggle" aria-pressed="false">Toggle</button>
+    </div>
+  </header>
+
+  <main>
+    <hr>
+    <!-- Favourites Section -->
+    <section id="favourites-section" aria-labelledby="favourites-heading">
+      <h2 id="favourites-heading">Favourite Constructor/Team</h2>
+      <div id="favourites-container">
+        <p class="empty-state">No favourite saved yet. Select one below.</p>
+        <!-- Populated via localStorage -->
+      </div>
+    </section>
+
+    <!-- Filter and Search Controls -->
+    <section id="filters-section" aria-labelledby="filters-heading">
+      <h2 id="filters-heading" class="visually-hidden">Filter Standings</h2>
+      <form id="filter-form">
+        <label for="driver-search">Search Driver:</label>
+        <input type="text" id="driver-search" placeholder="e.g., Verstappen">
+      </form>
+    </section>
+
+    <!-- Standings Data Grid -->
+    <section id="standings-section" aria-labelledby="standings-heading">
+      <h2 id="standings-heading">2026 Driver Standings</h2>
+      
+      <div id="standings-loading" class="ui-state">Loading data from Jolpica F1...</div>
+      <div id="standings-error" class="ui-state hidden" aria-live="assertive"></div>
+      
+      <div id="standings-loaded" class="hidden">
+        <table id="standings-table">
+          <thead>
+            <tr>
+              <th scope="col">Pos</th>
+              <th scope="col">Driver</th>
+              <th scope="col">Constructor</th>
+              <th scope="col">Points</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody id="standings-body">
+            <!-- JavaScript using textContent goes here -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Schedule Data -->
+    <section id="schedule-section" aria-labelledby="schedule-heading">
+      <h2 id="schedule-heading">Upcoming Race Schedule</h2>
+      <div id="schedule-loading" class="ui-state">Loading schedule...</div>
+      <div id="schedule-error" class="ui-state hidden" aria-live="assertive"></div>
+      
+      <ul id="schedule-list" class="hidden">
+        <!-- JavaScript using textContent goes here -->
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <hr>
+    <p>Built by Mike H. and Liam M. for COSC 219. Data provided by <a href="https://jolpi.ca/" target="_blank">Jolpica F1 API</a>.</p>
+  </footer>
+
+</body>
+</html>
