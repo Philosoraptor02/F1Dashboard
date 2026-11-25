@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Profiles — Formula 1 Season Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script type="module" src="js/drivers.js" defer></script>
+    <link rel="icon" type="image/svg+xml" href="assets/f1-logo.svg">
+</head>
+
+<body class="dark-mode">
+
+    <header>
+        <div class="logo-container">
+            <img src="assets/f1-logo.svg" alt="Formula 1 Logo" id="f1-logo">
+        </div>
+        <h1>Driver Profiles</h1>
+
+        <div class="controls">
+            <label for="colorblind-toggle">Colorblind Mode</label>
+            <button id="colorblind-toggle" aria-pressed="false">Toggle</button>
+        </div>
+
+        <nav aria-label="Main navigation">
+            <a href="index.html">Standings</a>
+            <a href="races.html">Races</a>
+            <a href="drivers.html" aria-current="page">Drivers</a>
+        </nav>
+    </header>
+
+    <main class="single-column">
+        <!-- Driver Selector -->
+        <section id="driver-selector-section" aria-labelledby="driver-selector-heading">
+            <h2 id="driver-selector-heading" class="visually-hidden">Select a Driver</h2>
+            <form class="selector-form">
+                <label for="driver-select">Choose Driver:</label>
+                <select id="driver-select" disabled>
+                    <option value="">Loading drivers...</option>
+                </select>
+            </form>
+        </section>
+
+        <!-- Driver Bio Card -->
+        <section id="driver-bio-section" aria-labelledby="driver-bio-heading">
+            <h2 id="driver-bio-heading">Driver Info</h2>
+            <div id="driver-bio-card" class="bio-grid">
+                <p class="empty-state">Select a driver to view their profile.</p>
+            </div>
+        </section>
+
+        <!-- Driver Season Results -->
+        <section id="driver-results-section" aria-labelledby="driver-results-heading">
+            <h2 id="driver-results-heading">Season Results</h2>
+
+            <div id="driver-loading" class="ui-state">Loading driver results from Jolpica F1...</div>
+            <div id="driver-error" class="ui-state hidden" aria-live="assertive"></div>
+
+            <div id="driver-loaded" class="table-wrapper hidden">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Round</th>
+                            <th scope="col">Grand Prix</th>
+                            <th scope="col">Grid</th>
+                            <th scope="col">Finish</th>
+                            <th scope="col">Points</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="driver-results-body">
+                        <!-- Populated by js/drivers.js -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Built by Mike H. and Liam M. for COSC 219. Data provided by <a href="https://jolpi.ca/"
+                target="_blank">Jolpica
+                F1 API</a>.</p>
+    </footer>
+
+</body>
+
+</html>

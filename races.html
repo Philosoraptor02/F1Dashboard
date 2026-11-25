@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Race Results — Formula 1 Season Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script type="module" src="js/races.js" defer></script>
+    <link rel="icon" type="image/svg+xml" href="assets/f1-logo.svg">
+</head>
+
+<body class="dark-mode">
+
+    <header>
+        <div class="logo-container">
+            <img src="assets/f1-logo.svg" alt="Formula 1 Logo" id="f1-logo">
+        </div>
+        <h1>Race Results</h1>
+
+        <div class="controls">
+            <label for="colorblind-toggle">Colorblind Mode</label>
+            <button id="colorblind-toggle" aria-pressed="false">Toggle</button>
+        </div>
+
+        <nav aria-label="Main navigation">
+            <a href="index.html">Standings</a>
+            <a href="races.html" aria-current="page">Races</a>
+            <a href="drivers.html">Drivers</a>
+        </nav>
+    </header>
+
+    <main class="single-column">
+        <!-- Race Selector -->
+        <section id="race-selector-section" aria-labelledby="race-selector-heading">
+            <h2 id="race-selector-heading" class="visually-hidden">Select a Race</h2>
+            <form class="selector-form">
+                <label for="race-select">Choose Grand Prix:</label>
+                <select id="race-select" disabled>
+                    <option value="">Loading races...</option>
+                </select>
+            </form>
+        </section>
+
+        <!-- Race Results Table -->
+        <section id="race-results-section" aria-labelledby="race-results-heading">
+            <h2 id="race-results-heading">Latest Race Results</h2>
+
+            <div id="race-loading" class="ui-state">Loading race results from Jolpica F1...</div>
+            <div id="race-error" class="ui-state hidden" aria-live="assertive"></div>
+
+            <div id="race-loaded" class="table-wrapper hidden">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Pos</th>
+                            <th scope="col">Driver</th>
+                            <th scope="col">Constructor</th>
+                            <th scope="col">Grid</th>
+                            <th scope="col">Time / Status</th>
+                            <th scope="col">Points</th>
+                        </tr>
+                    </thead>
+                    <tbody id="race-results-body">
+                        <!-- Populated by js/races.js -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Built by Mike H. and Liam M. for COSC 219. Data provided by <a href="https://jolpi.ca/"
+                target="_blank">Jolpica
+                F1 API</a>.</p>
+    </footer>
+
+</body>
+
+</html>

@@ -95,13 +95,38 @@ body {
 header {
     background-color: var(--bg-surface);
     border-bottom: 3px solid var(--accent-f1);
-    height: 75px;
+    min-height: 75px;
     padding: 1rem 1.5rem;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
+}
+
+header nav {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+header nav a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 600;
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius);
+    transition: color 0.15s ease;
+}
+
+header nav a:hover,
+header nav a[aria-current="page"] {
+    color: var(--text-primary);
+}
+
+header nav a[aria-current="page"] {
+    border-bottom: 2px solid var(--accent-f1);
+    border-radius: 0;
 }
 
 .logo-container img {
@@ -318,6 +343,81 @@ footer a {
 }
 
 /* =========================================
+   Races & Drivers Pages
+   ========================================= */
+.selector-form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+select {
+    width: 100%;
+    max-width: 360px;
+    padding: 0.6rem 0.75rem;
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.95rem;
+}
+
+.data-table th,
+.data-table td {
+    padding: 0.75rem 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.data-table th {
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+#race-error,
+#driver-error {
+    color: #ff8a80;
+    border: 1px solid #ff8a80;
+}
+
+.bio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
+}
+
+.bio-stat {
+    background-color: var(--bg-page);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 0.85rem 1rem;
+}
+
+.bio-stat-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.25rem;
+}
+
+.bio-stat-value {
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+
+/* =========================================
    Desktop Breakpoint
    ========================================= */
 @media (min-width: 900px) {
@@ -325,6 +425,10 @@ footer a {
         padding: 2rem;
         grid-template-columns: 2fr 1fr;
         align-items: start;
+    }
+
+    main.single-column {
+        grid-template-columns: 1fr;
     }
 
     #favourites-section,

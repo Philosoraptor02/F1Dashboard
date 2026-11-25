@@ -1,39 +1,14 @@
+import {
+    TEAM_COLOR_MAP,
+    FAV_DRIVER_KEY,
+    FAV_TEAM_KEY,
+    fetchJson,
+    getSavedItem,
+    initColorblindToggle,
+} from "./shared.js";
+
 const STANDINGS_URL = "https://api.jolpi.ca/ergast/f1/current/driverStandings.json";
 const SCHEDULE_URL = "https://api.jolpi.ca/ergast/f1/current.json";
-const TEAM_COLOR_MAP = {
-    mercedes: "var(--team-mercedes)",
-    ferrari: "var(--team-ferrari)",
-    red_bull: "var(--team-red-bull)",
-    mclaren: "var(--team-mclaren)",
-    rb: "var(--team-racing-bulls)",
-    racing_bulls: "var(--team-racing-bulls)",
-    alpine: "var(--team-alpine)",
-    haas: "var(--team-haas)",
-    audi: "var(--team-audi)",
-    sauber: "var(--team-audi)",
-    williams: "var(--team-williams)",
-    aston_martin: "var(--team-aston-martin)",
-    cadillac: "var(--team-cadillac)",
-};
-
-async function fetchJson(url) {
-    const response = await fetch(url);
-    if (!response.ok) {
-        throw new Error(`HTTP error: ${response.status}`);
-    }
-    return response.json();
-}
-
-const FAV_DRIVER_KEY = "favouriteDriver";
-const FAV_TEAM_KEY = "favouriteConstructor";
-
-function getSavedItem(key) {
-    try {
-        return JSON.parse(localStorage.getItem(key));
-    } catch {
-        return null;
-    }
-}
 
 function saveFavourite(key, item) {
     localStorage.setItem(key, JSON.stringify(item));
@@ -253,22 +228,6 @@ async function loadSchedule() {
         errorEl.textContent = `Could not load schedule. (${err.message})`;
         errorEl.classList.remove("hidden");
     }
-}
-
-function initColorblindToggle() {
-    const toggleBtn = document.querySelector("#colorblind-toggle");
-
-    const isSavedColorblind = localStorage.getItem("colorblindMode") === "true";
-    if (isSavedColorblind) {
-        document.body.classList.add("colorblind");
-        toggleBtn.setAttribute("aria-pressed", "true");
-    }
-
-    toggleBtn.addEventListener("click", () => {
-        const isActive = document.body.classList.toggle("colorblind");
-        toggleBtn.setAttribute("aria-pressed", String(isActive));
-        localStorage.setItem("colorblindMode", String(isActive));
-    });
 }
 
 initColorblindToggle();
