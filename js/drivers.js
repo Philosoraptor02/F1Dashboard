@@ -129,7 +129,6 @@ async function loadDrivers() {
 
         driverSelect.disabled = false;
 
-        // Default to saved favourite driver if present, otherwise first driver
         const favDriver = getSavedItem(FAV_DRIVER_KEY);
         const initialId = driversById.has(favDriver?.driverId)
             ? favDriver.driverId

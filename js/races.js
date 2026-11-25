@@ -68,7 +68,6 @@ async function loadRaceResults(round = "last") {
 
         headingEl.textContent = `Round ${race.round}: ${race.raceName} (${race.date})`;
 
-        // Sync dropdown if loaded via "last"
         if (raceSelect.querySelector(`option[value="${race.round}"]`)) {
             raceSelect.value = race.round;
         }
