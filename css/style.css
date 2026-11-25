@@ -387,9 +387,15 @@ select {
 }
 
 #race-error,
-#driver-error {
+#driver-error,
+#constructors-error {
     color: #ff8a80;
     border: 1px solid #ff8a80;
+}
+
+.fav-row {
+    background-color: var(--bg-surface-hover);
+    font-weight: 600;
 }
 
 .bio-grid {
