@@ -264,6 +264,34 @@ function filterDrivers(){
     searchEmptyEl.classList.toggle("hidden", !noMatches);
 }
 
+function getUpcomingRaces(races){
+    const today = new Date();
+
+    const upcomingRaces = races.filter((race) => {
+        const raceDateTime = `${race.date}T${race.time ?? "23:59:59Z"}`;
+        const raceDate = new Date(raceDateTime);
+
+         if (Number.isNaN(raceDate.getTime())) {
+            return false;
+        }
+
+        return raceDate > today;
+    });
+
+
+    upcomingRaces.sort((a, b) => {
+        const dateA = new Date(
+            `${a.date}T${a.time ?? "23:59:59Z"}`
+        );
+
+        const dateB = new Date(
+            `${b.date}T${b.time ?? "23:59:59Z"}`
+        );
+        return dateA - dateB;
+    });
+     return upcomingRaces;
+}
+
 document.querySelector("#filter-form").addEventListener("submit", (event) => {
     event.preventDefault();
 });
