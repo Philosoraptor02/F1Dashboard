@@ -210,8 +210,22 @@ async function loadSchedule() {
             return;
         }
 
+        const upcomingRaces = getUpcomingRaces(races);
+
         listEl.textContent = "";
-        races.forEach((race) => {
+        if (upcomingRaces.length === 0) {
+
+            const li = document.createElement("li");
+            li.className = "empty-state";
+            li.textContent = "No upcoming races remaining this season.";
+
+            listEl.appendChild(li);
+
+            listEl.classList.remove("hidden");
+            return;
+        }
+
+        upcomingRaces.forEach((race) => {
             const li = document.createElement("li");
 
             const title = document.createElement("strong");
