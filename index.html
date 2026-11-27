@@ -73,6 +73,11 @@
 
     <section id="schedule-section" aria-labelledby="schedule-heading">
       <h2 id="schedule-heading">Upcoming Race Schedule</h2>
+      <label for="schedule-filter">Show:</label>
+      <select id="schedule-filter">
+        <option value="upcoming">Upcoming Races</option>
+        <option value="all">All Races</option>
+      </select>
       <div id="schedule-loading" class="ui-state">Loading schedule...</div>
       <div id="schedule-error" class="ui-state hidden" aria-live="assertive"></div>
 
