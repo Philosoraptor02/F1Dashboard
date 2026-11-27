@@ -10,6 +10,8 @@ import {
 const STANDINGS_URL = "https://api.jolpi.ca/ergast/f1/current/driverStandings.json";
 const SCHEDULE_URL = "https://api.jolpi.ca/ergast/f1/current.json";
 
+let allRaces = [];
+
 function saveFavourite(key, item) {
     localStorage.setItem(key, JSON.stringify(item));
     renderFavourites();
@@ -197,55 +199,80 @@ async function loadSchedule() {
     const loadingEl = document.querySelector("#schedule-loading");
     const errorEl = document.querySelector("#schedule-error");
     const listEl = document.querySelector("#schedule-list");
+    const filterEl = document.querySelector("#schedule-filter");
+
+    
+    filterEl.disabled = true;
 
     try {
+        
         const data = await fetchJson(SCHEDULE_URL);
-        const races = data.MRData.RaceTable.Races ?? [];
-
+        allRaces = data.MRData.RaceTable.Races ?? [];
         loadingEl.classList.add("hidden");
+        filterEl.disabled = false;
 
-        if (races.length === 0) {
-            errorEl.textContent = "No races found for this season.";
-            errorEl.classList.remove("hidden");
-            return;
-        }
+        renderSchedule();
 
-        const upcomingRaces = getUpcomingRaces(races);
-
-        listEl.textContent = "";
-        if (upcomingRaces.length === 0) {
-
-            const li = document.createElement("li");
-            li.className = "empty-state";
-            li.textContent = "No upcoming races remaining this season.";
-
-            listEl.appendChild(li);
-
-            listEl.classList.remove("hidden");
-            return;
-        }
-
-        upcomingRaces.forEach((race) => {
-            const li = document.createElement("li");
-
-            const title = document.createElement("strong");
-            title.textContent = `Round ${race.round}: ${race.raceName}`;
-
-            const details = document.createElement("div");
-            details.textContent = `${race.Circuit.circuitName} — ${race.date}`;
-
-            li.append(title, details);
-            listEl.appendChild(li);
-        });
-
-        listEl.classList.remove("hidden");
     } catch (err) {
         loadingEl.classList.add("hidden");
-        errorEl.textContent = `Could not load schedule. (${err.message})`;
+        listEl.classList.add("hidden");
+
+        
+        errorEl.textContent =`Could not load schedule. (${err.message})`;
         errorEl.classList.remove("hidden");
     }
 }
-//
+function renderSchedule() {
+
+    const filter = document.querySelector("#schedule-filter").value;
+    const listEl = document.querySelector("#schedule-list");
+
+    let racesToShow;
+
+    if(filter === "all") {
+        racesToShow = allRaces;
+    }else{
+        racesToShow = getUpcomingRaces(allRaces);
+}
+    listEl.textContent = "";
+    if (racesToShow.length === 0) {
+
+        const li = document.createElement("li");
+        li.className = "empty-state";
+
+        if (allRaces.length === 0) {
+            li.textContent ="No races available this season.";
+        } else {
+            li.textContent = "No upcoming races remaining this season.";
+        }
+
+        listEl.appendChild(li);
+        listEl.classList.remove("hidden");
+        return;
+    }
+
+    racesToShow.forEach((race) => {
+
+        const li = document.createElement("li");
+
+        const title = document.createElement("strong");
+        title.textContent =`Round ${race.round}: ${race.raceName}`;
+
+        const circuit = document.createElement("div");
+        circuit.className = "race-circuit";
+        circuit.textContent = race.Circuit.circuitName;
+
+        const date = document.createElement("div");
+        date.className = "race-date";
+        date.textContent = race.date;
+
+        li.append(title, circuit, date);
+        listEl.appendChild(li);
+    });
+
+    listEl.classList.remove("hidden");
+}
+
 //filters the displayed standings based on the name types in search box
 function filterDrivers(){
     const driverSearch = document.querySelector("#driver-search");
@@ -310,6 +337,8 @@ document.querySelector("#filter-form").addEventListener("submit", (event) => {
     event.preventDefault();
 });
 document.querySelector("#driver-search").addEventListener("input", filterDrivers);
+
+document.querySelector("#schedule-filter").addEventListener("change", renderSchedule);
 
 initColorblindToggle();
 renderFavourites();
