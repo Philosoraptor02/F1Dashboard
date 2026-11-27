@@ -183,6 +183,8 @@ async function loadStandings() {
 
         updateFavouriteButtons();
         loadedEl.classList.remove("hidden");
+
+        filterDrivers();
     } catch (err) {
 
         loadingEl.classList.add("hidden");
@@ -229,6 +231,43 @@ async function loadSchedule() {
         errorEl.classList.remove("hidden");
     }
 }
+//
+//filters the displayed standings based on the name types in search box
+function filterDrivers(){
+    const driverSearch = document.querySelector("#driver-search");
+    const searchText = driverSearch.value.trim().toLowerCase();
+
+    const standingsLoaded = document.querySelector("#standings-loaded");
+
+
+    if (standingsLoaded.classList.contains("hidden")){
+        return;
+    }
+    const rows = document.querySelectorAll("#standings-body tr");
+    const table = document.querySelector("#standings-table");
+    const searchEmptyEl = document.querySelector("#search-empty");
+    let matchingCount = 0;
+
+    rows.forEach((row) =>{
+        const driverName = row.cells[1].textContent.toLowerCase();
+        const matches = driverName.includes(searchText);
+
+        row.classList.toggle("hidden", !matches);
+        if(matches){
+            matchingCount++;
+        }
+    });
+
+    const noMatches = rows.length > 0 && matchingCount === 0;
+
+    table.classList.toggle("hidden", noMatches);
+    searchEmptyEl.classList.toggle("hidden", !noMatches);
+}
+
+document.querySelector("#filter-form").addEventListener("submit", (event) => {
+    event.preventDefault();
+});
+document.querySelector("#driver-search").addEventListener("input", filterDrivers);
 
 initColorblindToggle();
 renderFavourites();
